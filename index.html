@@ -3,67 +3,374 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudio HZ — Arquitectura · Buenos Aires</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<title>Estudio HZ — Arquitectura en Buenos Aires</title>
+<meta name="description" content="Estudio HZ: arquitectura conceptual e IA generativa en Buenos Aires. Proyectos y anteproyectos residenciales y comerciales. Contactanos por WhatsApp.">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --black: #0a0a0a; --white: #f5f4f0; --gray: #8a8880; --line: rgba(255,255,255,0.1); }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
-  .container { max-width: 480px; margin: 0 auto; padding: 0 28px; }
-  header { padding: 64px 0 48px; opacity: 0; animation: fadeUp 1s ease 0.1s forwards; }
-  .logo-mark { width: 56px; height: 56px; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; }
-  .logo-mark span { font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 15px; letter-spacing: 0.05em; color: var(--white); }
-  .studio-name { font-family: 'Cormorant', serif; font-weight: 300; font-size: clamp(36px, 8vw, 48px); line-height: 1; letter-spacing: -0.01em; margin-bottom: 10px; }
-  .studio-sub { font-size: 11px; letter-spacing: 0.2em; color: var(--gray); text-transform: uppercase; }
-  .divider { width: 100%; height: 1px; background: var(--line); margin: 40px 0; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; }
-  .tagline { font-family: 'Cormorant', serif; font-style: italic; font-weight: 300; font-size: clamp(18px, 4vw, 22px); color: rgba(245,244,240,0.55); line-height: 1.5; margin-bottom: 40px; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
-  .links { display: flex; flex-direction: column; gap: 1px; opacity: 0; animation: fadeUp 1s ease 0.55s forwards; }
-  .link-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--white); transition: color 0.2s ease; cursor: pointer; }
-  .link-item:first-child { border-top: 1px solid var(--line); }
-  .link-item:hover { color: var(--gray); }
-  .link-item:hover .arrow { transform: translate(3px, -3px); }
-  .link-label { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
-  .link-desc { font-family: 'Cormorant', serif; font-style: italic; font-size: 14px; color: var(--gray); margin-top: 3px; }
-  .arrow { font-size: 16px; color: var(--gray); transition: transform 0.2s ease; flex-shrink: 0; margin-left: 16px; }
-  .contact-section { padding: 48px 0 32px; opacity: 0; animation: fadeUp 1s ease 0.7s forwards; }
-  .contact-label { font-size: 10px; letter-spacing: 0.25em; color: var(--gray); text-transform: uppercase; margin-bottom: 16px; }
-  .instagram-link { font-size: 12px; letter-spacing: 0.1em; color: var(--gray); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
-  .instagram-link:hover { color: var(--white); }
-  footer { padding: 32px 0 48px; opacity: 0; animation: fadeUp 1s ease 0.85s forwards; }
-  .footer-text { font-size: 10px; letter-spacing: 0.15em; color: rgba(138,136,128,0.5); text-transform: uppercase; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  :root{
+    --concrete:#e9e5dd;
+    --ink:#22201c;
+    --clay:#a3492e;
+    --paper:#f7f4ee;
+    --line:#c9c2b4;
+    --muted:#6b6459;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Georgia','Times New Roman',serif;
+    line-height:1.5;
+  }
+  .label{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+    color:var(--muted);
+  }
+
+  /* NAV */
+  nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:28px 6vw;
+    border-bottom:1px solid var(--line);
+  }
+  nav .brand{
+    font-size:1.15rem;
+    font-weight:normal;
+    letter-spacing:0.01em;
+  }
+  nav a{
+    color:var(--ink);
+    text-decoration:none;
+  }
+  nav .links{
+    display:flex;
+    gap:32px;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.85rem;
+  }
+  nav .links a{
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:border-color .2s;
+  }
+  nav .links a:hover{
+    border-color:var(--clay);
+  }
+
+  /* HERO */
+  .hero{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    min-height:78vh;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:6vw;
+  }
+  .hero-text h1{
+    font-size:clamp(2.4rem,4.8vw,4.2rem);
+    font-weight:normal;
+    line-height:1.05;
+    max-width:11ch;
+  }
+  .hero-text p{
+    margin-top:28px;
+    max-width:38ch;
+    color:var(--muted);
+    font-size:1.05rem;
+  }
+  .hero-img{
+    background:
+      linear-gradient(rgba(34,32,28,0.15),rgba(34,32,28,0.15)),
+      var(--concrete);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--muted);
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.85rem;
+    text-align:center;
+    padding:2rem;
+  }
+
+  .cta-row{
+    margin-top:36px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.88rem;
+    padding:14px 26px;
+    border:1px solid var(--ink);
+    text-decoration:none;
+    color:var(--ink);
+    transition:background .2s, color .2s;
+    display:inline-block;
+  }
+  .btn.primary{
+    background:var(--clay);
+    border-color:var(--clay);
+    color:var(--paper);
+  }
+  .btn.primary:hover{
+    background:#8a3b25;
+  }
+  .btn:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  /* PROJECTS */
+  .section{
+    padding:5vw 6vw;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:48px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  .section-head h2{
+    font-size:1.9rem;
+    font-weight:normal;
+  }
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    background:var(--line);
+  }
+  .project{
+    background:var(--paper);
+    padding:0;
+  }
+  .project-img{
+    aspect-ratio:4/3;
+    background:var(--concrete);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.78rem;
+    color:var(--muted);
+    text-align:center;
+    padding:1.5rem;
+  }
+  .project-meta{
+    padding:18px 4px 4px;
+  }
+  .project-meta h3{
+    font-size:1.15rem;
+    font-weight:normal;
+  }
+  .project-meta span{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.8rem;
+    color:var(--muted);
+  }
+
+  /* ABOUT */
+  .about{
+    background:var(--concrete);
+    display:grid;
+    grid-template-columns:0.7fr 1fr;
+    gap:6vw;
+    align-items:start;
+  }
+  .about p{
+    max-width:60ch;
+    font-size:1.05rem;
+    color:#3a362f;
+  }
+  .about p + p{margin-top:18px;}
+
+  /* INSTAGRAM STRIP */
+  .insta-strip{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2px;
+    background:var(--line);
+  }
+  .insta-tile{
+    aspect-ratio:1;
+    background:var(--concrete);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.75rem;
+    color:var(--muted);
+  }
+
+  /* CONTACT */
+  .contact{
+    text-align:center;
+    padding:8vw 6vw 6vw;
+  }
+  .contact h2{
+    font-size:clamp(2rem,4vw,3rem);
+    font-weight:normal;
+    max-width:16ch;
+    margin:0 auto 20px;
+  }
+  .contact p{
+    color:var(--muted);
+    max-width:42ch;
+    margin:0 auto 36px;
+  }
+  .contact-links{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:24px 6vw;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:0.78rem;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;}
+    .hero-img{min-height:280px;}
+    .projects{grid-template-columns:1fr 1fr;}
+    .insta-strip{grid-template-columns:repeat(2,1fr);}
+    .about{grid-template-columns:1fr;}
+    nav .links{gap:18px;}
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <div class="logo-mark"><span>HZ</span></div>
-    <h1 class="studio-name">Estudio HZ</h1>
-    <p class="studio-sub">Arquitectura &amp; Interiorismo · Buenos Aires</p>
-  </header>
-  <div class="divider"></div>
-  <p class="tagline">Spaces that don't exist yet.</p>
-  <nav class="links">
-    <a class="link-item" href="https://www.behance.net/hzarchstudio" target="_blank">
-      <div><div class="link-label">Proyectos</div><div class="link-desc">Portfolio · Behance</div></div>
-      <span class="arrow">↗</span>
-    </a>
-    <a class="link-item" href="https://www.instagram.com/estudiohz_" target="_blank">
-      <div><div class="link-label">Instagram</div><div class="link-desc">@estudiohz_</div></div>
-      <span class="arrow">↗</span>
-    </a>
-    <a class="link-item" href="https://wa.me/541164675558" target="_blank">
-      <div><div class="link-label">Contacto</div><div class="link-desc">Consultas y proyectos</div></div>
-      <span class="arrow">↗</span>
-    </a>
-  </nav>
-  <div class="contact-section">
-    <p class="contact-label">Buenos Aires, Argentina</p>
-    <div><a class="instagram-link" href="https://www.instagram.com/estudiohz_" target="_blank">@estudiohz_</a></div>
+
+<nav>
+  <a class="brand" href="#top">Estudio HZ</a>
+  <div class="links">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#estudio">Estudio</a>
+    <a href="#contacto">Contacto</a>
   </div>
-  <footer><p class="footer-text">© 2026 Estudio HZ — Hernán Ortiz</p></footer>
-</div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-text">
+    <span class="label">ARQUITECTURA CONCEPTUAL · IA GENERATIVA · BUENOS AIRES</span>
+    <h1 style="margin-top:14px;">Espacios que todavía no existen</h1>
+    <p>Estudio HZ diseña proyectos y anteproyectos residenciales y comerciales en Buenos Aires, desde la idea conceptual hasta la dirección de obra.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="https://wa.me/54911XXXXXXXX?text=Hola!%20Vi%20tu%20web%20y%20quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+      <a class="btn" href="#proyectos">Ver proyectos</a>
+    </div>
+  </div>
+  <div class="hero-img" style="background-image:url('images/hero.jpg');background-size:cover;background-position:center;"></div>
+</section>
+
+<section class="section" id="proyectos">
+  <div class="section-head">
+    <h2>Proyectos seleccionados</h2>
+    <span class="label">2023 — 2026</span>
+  </div>
+  <div class="projects">
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto1.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Casa Campo</h3>
+        <span>Buenos Aires · Vivienda unifamiliar</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto2.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Comedor Lineal</h3>
+        <span>Buenos Aires · Interiorismo</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto3.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Estar de Piedra</h3>
+        <span>Buenos Aires · Reforma</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto4.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Casa Cubo</h3>
+        <span>Buenos Aires · Anteproyecto</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto5.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Cocina Isla</h3>
+        <span>Buenos Aires · Vivienda unifamiliar</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto6.jpg');background-size:cover;background-position:center;"></div>
+      <div class="project-meta">
+        <h3>Living Verde</h3>
+        <span>Buenos Aires · Interiorismo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section about" id="estudio">
+  <div>
+    <span class="label">EL ESTUDIO</span>
+    <h2 style="margin-top:14px;font-size:1.9rem;font-weight:normal;">Sobre Estudio HZ</h2>
+  </div>
+  <div>
+    <p>Estudio HZ es el estudio de Hernán Ortiz, con base en Buenos Aires. Trabajamos arquitectura conceptual apoyada en herramientas de IA generativa para explorar más variantes de cada proyecto antes de construirlo, sin perder de vista cómo se va a habitar cada espacio.</p>
+    <p>Ofrecemos anteproyectos, proyecto ejecutivo, interiorismo y dirección de obra para viviendas y espacios comerciales.</p>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line);">
+  <div class="section-head">
+    <h2>Instagram</h2>
+    <a href="https://instagram.com/estudiohz_" target="_blank" rel="noopener" class="label" style="text-decoration:none;color:var(--clay);">@estudiohz_ →</a>
+  </div>
+  <div class="insta-strip">
+    <a class="insta-tile" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener" style="background-image:url('images/insta1.jpg');background-size:cover;background-position:center;"></a>
+    <a class="insta-tile" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener" style="background-image:url('images/insta2.jpg');background-size:cover;background-position:center;"></a>
+    <a class="insta-tile" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener" style="background-image:url('images/insta3.jpg');background-size:cover;background-position:center;"></a>
+    <a class="insta-tile" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener" style="background-image:url('images/insta4.jpg');background-size:cover;background-position:center;"></a>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <span class="label">CONTACTO</span>
+  <h2 style="margin-top:14px;">¿Tenés un proyecto en mente?</h2>
+  <p>Contanos qué necesitás y coordinamos una primera reunión sin costo para evaluar el alcance.</p>
+  <div class="contact-links">
+    <a class="btn primary" href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" href="mailto:estudiohz@gmail.com">Email</a>
+    <a class="btn" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <span>Estudio HZ — Buenos Aires, Argentina</span>
+  <span>© 2026</span>
+</footer>
+
 </body>
 </html>
