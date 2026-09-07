@@ -41,7 +41,7 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:28px 6vw;
+    padding:20px 6vw;
     border-bottom:1px solid var(--line);
   }
   nav .brand{
@@ -55,7 +55,7 @@
   }
   nav .links{
     display:flex;
-    gap:32px;
+    gap:24px;
     font-family:'Helvetica Neue',Arial,sans-serif;
     font-size:0.85rem;
   }
@@ -82,16 +82,16 @@
     padding:6vw;
   }
   .hero-text h1{
-    font-size:clamp(2.4rem,4.8vw,4.2rem);
+    font-size:clamp(2rem, 4.5vw, 4.2rem);
     font-weight:normal;
     line-height:1.05;
-    max-width:11ch;
+    max-width:14ch;
   }
   .hero-text p{
-    margin-top:28px;
+    margin-top:24px;
     max-width:38ch;
     color:var(--muted);
-    font-size:1.05rem;
+    font-size:1rem;
   }
   .hero-img{
     background-color:var(--concrete);
@@ -103,20 +103,21 @@
   }
 
   .cta-row{
-    margin-top:36px;
+    margin-top:32px;
     display:flex;
-    gap:16px;
+    gap:12px;
     flex-wrap:wrap;
   }
   .btn{
     font-family:'Helvetica Neue',Arial,sans-serif;
-    font-size:0.88rem;
-    padding:14px 26px;
+    font-size:0.85rem;
+    padding:12px 22px;
     border:1px solid var(--ink);
     text-decoration:none;
     color:var(--ink);
     transition:background .2s, color .2s;
     display:inline-block;
+    text-align:center;
   }
   .btn.primary{
     background:var(--clay);
@@ -133,23 +134,23 @@
 
   /* PROJECTS */
   .section{
-    padding:5vw 6vw;
+    padding:6vw;
   }
   .section-head{
     display:flex;
     justify-content:space-between;
     align-items:baseline;
-    margin-bottom:48px;
+    margin-bottom:32px;
     border-bottom:1px solid var(--line);
-    padding-bottom:20px;
+    padding-bottom:16px;
   }
   .section-head h2{
-    font-size:1.9rem;
+    font-size:1.6rem;
     font-weight:normal;
   }
   .projects{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(3, 1fr);
     gap:32px 24px;
   }
   .project{
@@ -164,15 +165,15 @@
     width:100%;
   }
   .project-meta{
-    padding:18px 4px 4px;
+    padding:14px 4px 4px;
   }
   .project-meta h3{
-    font-size:1.15rem;
+    font-size:1.1rem;
     font-weight:normal;
   }
   .project-meta span{
     font-family:'Helvetica Neue',Arial,sans-serif;
-    font-size:0.8rem;
+    font-size:0.78rem;
     color:var(--muted);
   }
 
@@ -186,16 +187,16 @@
   }
   .about p{
     max-width:60ch;
-    font-size:1.05rem;
+    font-size:1rem;
     color:#3a362f;
   }
-  .about p + p{margin-top:18px;}
+  .about p + p{margin-top:16px;}
 
   /* INSTAGRAM STRIP */
   .insta-strip{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
+    grid-template-columns:repeat(4, 1fr);
+    gap:12px;
   }
   .insta-tile{
     aspect-ratio:1;
@@ -208,29 +209,29 @@
   /* CONTACT */
   .contact{
     text-align:center;
-    padding:8vw 6vw 6vw;
+    padding:10vw 6vw;
   }
   .contact h2{
-    font-size:clamp(2rem,4vw,3rem);
+    font-size:clamp(1.8rem, 4vw, 3rem);
     font-weight:normal;
-    max-width:16ch;
-    margin:0 auto 20px;
+    max-width:18ch;
+    margin:0 auto 16px;
   }
   .contact p{
     color:var(--muted);
     max-width:42ch;
-    margin:0 auto 36px;
+    margin:0 auto 28px;
   }
   .contact-links{
     display:flex;
-    gap:16px;
+    gap:12px;
     justify-content:center;
     flex-wrap:wrap;
   }
 
   footer{
     border-top:1px solid var(--line);
-    padding:24px 6vw;
+    padding:20px 6vw;
     font-family:'Helvetica Neue',Arial,sans-serif;
     font-size:0.78rem;
     color:var(--muted);
@@ -240,13 +241,45 @@
     gap:10px;
   }
 
-  @media (max-width:820px){
-    .hero{grid-template-columns:1fr;}
-    .hero-img{min-height:280px;}
-    .projects{grid-template-columns:1fr;}
-    .insta-strip{grid-template-columns:repeat(2,1fr);}
-    .about{grid-template-columns:1fr;}
-    nav .links{gap:18px;}
+  /* ADAPTACIÓN MÓVIL */
+  @media (max-width: 820px){
+    nav{
+      padding:16px 5vw;
+    }
+    nav .links{
+      gap:16px;
+      font-size:0.8rem;
+    }
+    .hero{
+      grid-template-columns:1fr;
+      min-height:auto;
+    }
+    .hero-text{
+      padding:8vw 5vw;
+      order: 2;
+    }
+    .hero-img{
+      order: 1;
+      aspect-ratio: 4/3;
+      min-height: auto;
+    }
+    .cta-row{
+      flex-direction: column;
+    }
+    .btn{
+      width: 100%;
+    }
+    .projects{
+      grid-template-columns:1fr;
+      gap:24px;
+    }
+    .insta-strip{
+      grid-template-columns:repeat(2, 1fr);
+    }
+    .about{
+      grid-template-columns:1fr;
+      gap:20px;
+    }
   }
 </style>
 </head>
@@ -281,46 +314,67 @@
   </div>
   
   <div class="projects">
-    <a href="casa-campo.html" class="project" style="text-decoration:none; color:inherit; display:block;">
+    <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto1.jpg');"></div>
       <div class="project-meta">
-        <h3>Casa Campo</h3>
+        <h3>CS 85</h3>
         <span>Buenos Aires · Vivienda unifamiliar</span>
       </div>
-    </a>
+    </div>
     <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto2.jpg');"></div>
       <div class="project-meta">
-        <h3>Comedor Lineal</h3>
-        <span>Buenos Aires · Interiorismo</span>
+        <h3>Chacras de la Reserva 156</h3>
+        <span>Buenos Aires · Vivienda unifamiliar</span>
       </div>
     </div>
     <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto3.jpg');"></div>
       <div class="project-meta">
-        <h3>Estar de Piedra</h3>
-        <span>Buenos Aires · Reforma</span>
+        <h3>Bali Ecoislandia - Escobar</h3>
+        <span>Escobar · Anteproyecto</span>
       </div>
     </div>
     <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto4.jpg');"></div>
       <div class="project-meta">
-        <h3>Casa Cubo</h3>
-        <span>Buenos Aires · Anteproyecto</span>
+        <h3>Lujan L4</h3>
+        <span>Luján · Vivienda unifamiliar</span>
       </div>
     </div>
     <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto5.jpg');"></div>
       <div class="project-meta">
-        <h3>Cocina Isla</h3>
+        <h3>Barrio Alameda Lote 244</h3>
         <span>Buenos Aires · Vivienda unifamiliar</span>
       </div>
     </div>
     <div class="project">
       <div class="project-img" style="background-image:url('images/proyecto6.jpg');"></div>
       <div class="project-meta">
-        <h3>Living Verde</h3>
+        <h3>Barrio Cazal - Diseño Residencial</h3>
+        <span>Buenos Aires · Diseño Residencial</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto7.jpg');"></div>
+      <div class="project-meta">
+        <h3>Diseño Interior Minimalista</h3>
         <span>Buenos Aires · Interiorismo</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto8.jpg');"></div>
+      <div class="project-meta">
+        <h3>Estructuras Arquitectónicas</h3>
+        <span>Buenos Aires · Arquitectura conceptual</span>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-img" style="background-image:url('images/proyecto9.jpg');"></div>
+      <div class="project-meta">
+        <h3>Casa Nh</h3>
+        <span>Buenos Aires · Vivienda unifamiliar</span>
       </div>
     </div>
   </div>
@@ -329,7 +383,7 @@
 <section class="section about" id="estudio">
   <div>
     <span class="label">EL ESTUDIO</span>
-    <h2 style="margin-top:14px;font-size:1.9rem;font-weight:normal;">Sobre Estudio HZ</h2>
+    <h2 style="margin-top:14px;font-size:1.6rem;font-weight:normal;">Sobre Estudio HZ</h2>
   </div>
   <div>
     <p>Estudio HZ es el estudio de Hernán Ortiz, con base en Buenos Aires. Trabajamos arquitectura conceptual apoyada en herramientas de IA generativa para explorar más variantes de cada proyecto antes de construirlo, sin perder de vista cómo se va a habitar cada espacio.</p>
