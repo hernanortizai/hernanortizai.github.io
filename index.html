@@ -174,7 +174,6 @@
   }
   .project-meta{
     padding:14px 4px 4px;
-    pointer-events:none;
   }
   .project-meta h3{
     font-size:1.1rem;
@@ -389,7 +388,7 @@
     <span class="label">2023 — 2026</span>
   </div>
   
-  <div class="projects">
+  <div class="projects" id="projectsGrid">
     <!-- Proyecto 1 -->
     <div class="project" data-id="project1">
       <div class="project-img" style="background-image:url('images/proyecto1.jpg');"></div>
@@ -489,8 +488,7 @@
   <p>Contanos qué necesitás y coordinamos una primera reunión sin costo para evaluar el alcance.</p>
   <div class="contact-links">
     <a class="btn primary" href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">WhatsApp</a>
-    <!-- Redirección directa a Web Gmail para evitar bloqueos del sistema operativo -->
-    <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=hzstudio.arq@gmail.com&su=Consulta%20desde%20la%20web&body=Hola!%20Quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">Email</a>
+    <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=hzstudio.arq@gmail.com&su=Consulta%20desde%20la%20web" target="_blank" rel="noopener">Email</a>
     <a class="btn" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener">Instagram</a>
   </div>
 </section>
@@ -543,34 +541,36 @@
   document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('projectModal');
     const closeBtn = document.getElementById('modalCloseBtn');
+    const projectsGrid = document.getElementById('projectsGrid');
 
-    // Escuchar clic en cada elemento de la grilla mediante data-id
-    document.querySelectorAll('.project').forEach(card => {
-      card.addEventListener('click', () => {
-        const id = card.getAttribute('data-id');
-        const data = projectData[id];
-        if(!data) return;
+    // Delegación de eventos para capturar el clic en cualquier parte del cuadro (imagen, texto, título)
+    projectsGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.project');
+      if(!card) return;
 
-        document.getElementById('modalTitle').innerText = data.title;
-        document.getElementById('modalMeta').innerText = data.meta;
-        document.getElementById('modalDesc').innerText = data.desc;
+      const id = card.getAttribute('data-id');
+      const data = projectData[id];
+      if(!data) return;
 
-        const galleryContainer = document.getElementById('modalGallery');
-        galleryContainer.innerHTML = '';
-        data.images.forEach(imgUrl => {
-          const img = document.createElement('img');
-          img.src = imgUrl;
-          img.alt = data.title;
-          galleryContainer.appendChild(img);
-        });
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalMeta').innerText = data.meta;
+      document.getElementById('modalDesc').innerText = data.desc;
 
-        const cta = document.getElementById('modalCta');
-        const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
-        cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
-
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      const galleryContainer = document.getElementById('modalGallery');
+      galleryContainer.innerHTML = '';
+      data.images.forEach(imgUrl => {
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.alt = data.title;
+        galleryContainer.appendChild(img);
       });
+
+      const cta = document.getElementById('modalCta');
+      const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
+      cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     });
 
     closeBtn.addEventListener('click', closeModal);
