@@ -159,6 +159,7 @@
     padding:0;
     cursor:pointer;
     transition:transform 0.2s ease;
+    user-select:none;
   }
   .project:hover{
     transform:translateY(-4px);
@@ -169,9 +170,11 @@
     background-size:cover;
     background-position:center;
     width:100%;
+    display:block;
   }
   .project-meta{
     padding:14px 4px 4px;
+    pointer-events:none;
   }
   .project-meta h3{
     font-size:1.1rem;
@@ -388,7 +391,7 @@
   
   <div class="projects">
     <!-- Proyecto 1 -->
-    <div class="project" onclick="openModal('project1')">
+    <div class="project" data-id="project1">
       <div class="project-img" style="background-image:url('images/proyecto1.jpg');"></div>
       <div class="project-meta">
         <h3>CS 85</h3>
@@ -396,7 +399,7 @@
       </div>
     </div>
     <!-- Proyecto 2 -->
-    <div class="project" onclick="openModal('project2')">
+    <div class="project" data-id="project2">
       <div class="project-img" style="background-image:url('images/proyecto2.jpg');"></div>
       <div class="project-meta">
         <h3>Chacras de la Reserva 156</h3>
@@ -404,7 +407,7 @@
       </div>
     </div>
     <!-- Proyecto 3 -->
-    <div class="project" onclick="openModal('project3')">
+    <div class="project" data-id="project3">
       <div class="project-img" style="background-image:url('images/proyecto3.jpg');"></div>
       <div class="project-meta">
         <h3>Bali Ecoislandia - Escobar</h3>
@@ -412,7 +415,7 @@
       </div>
     </div>
     <!-- Proyecto 4 -->
-    <div class="project" onclick="openModal('project4')">
+    <div class="project" data-id="project4">
       <div class="project-img" style="background-image:url('images/proyecto4.jpg');"></div>
       <div class="project-meta">
         <h3>Lujan L4</h3>
@@ -420,7 +423,7 @@
       </div>
     </div>
     <!-- Proyecto 5 -->
-    <div class="project" onclick="openModal('project5')">
+    <div class="project" data-id="project5">
       <div class="project-img" style="background-image:url('images/proyecto5.jpg');"></div>
       <div class="project-meta">
         <h3>Barrio Alameda Lote 244</h3>
@@ -428,7 +431,7 @@
       </div>
     </div>
     <!-- Proyecto 6 -->
-    <div class="project" onclick="openModal('project6')">
+    <div class="project" data-id="project6">
       <div class="project-img" style="background-image:url('images/proyecto6.jpg');"></div>
       <div class="project-meta">
         <h3>Barrio Cazal - Diseño Residencial</h3>
@@ -439,9 +442,9 @@
 </section>
 
 <!-- MODAL ESTRUCTURA GENERAL -->
-<div class="modal-overlay" id="projectModal" onclick="closeModalOnOverlay(event)">
+<div class="modal-overlay" id="projectModal">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <button class="modal-close" id="modalCloseBtn">&times;</button>
     <div class="modal-header">
       <h2 id="modalTitle">Título del Proyecto</h2>
       <span class="label" id="modalMeta">Ubicación · Tipología</span>
@@ -449,9 +452,7 @@
     <div class="modal-description" id="modalDesc">
       Descripción detallada del proyecto.
     </div>
-    <div class="modal-gallery" id="modalGallery">
-      <!-- Las imágenes del proyecto se cargan dinámicamente -->
-    </div>
+    <div class="modal-gallery" id="modalGallery"></div>
     <div style="text-align:center; margin-top:32px;">
       <a class="btn primary" id="modalCta" href="#" target="_blank" rel="noopener">Consultar por un proyecto similar</a>
     </div>
@@ -488,7 +489,8 @@
   <p>Contanos qué necesitás y coordinamos una primera reunión sin costo para evaluar el alcance.</p>
   <div class="contact-links">
     <a class="btn primary" href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="btn" href="mailto:hzstudio.arq@gmail.com?subject=Consulta%20desde%20la%20web&body=Hola!%20Quiero%20consultar%20por%20un%20proyecto">Email</a>
+    <!-- Redirección directa a Web Gmail para evitar bloqueos del sistema operativo -->
+    <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=hzstudio.arq@gmail.com&su=Consulta%20desde%20la%20web&body=Hola!%20Quiero%20consultar%20por%20un%20proyecto" target="_blank" rel="noopener">Email</a>
     <a class="btn" href="https://instagram.com/estudiohz_" target="_blank" rel="noopener">Instagram</a>
   </div>
 </section>
@@ -499,96 +501,89 @@
 </footer>
 
 <script>
-  // BASE DE DATOS LOCAL DE PROYECTOS
   const projectData = {
     project1: {
       title: "CS 85",
       meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Desarrollo de proyecto residencial enfocado en la integración volumétrica y optimización de luz natural. Uso de materialidad en hormigón visto y carpinterías continuas.",
-      images: [
-        "images/proyecto1.jpg",
-        "images/proyecto1_2.jpg"
-      ]
+      desc: "Desarrollo de proyecto residencial enfocado en la integración volumétrica y optimización de luz natural.",
+      images: ["images/proyecto1.jpg"]
     },
     project2: {
       title: "Chacras de la Reserva 156",
       meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Propuesta arquitectónica de una sola planta en entorno suburbano, articulando patios internos para garantizar privacidad y ventilación cruzada.",
-      images: [
-        "images/proyecto2.jpg"
-      ]
+      desc: "Propuesta arquitectónica de una sola planta en entorno suburbano con patios internos.",
+      images: ["images/proyecto2.jpg"]
     },
     project3: {
       title: "Bali Ecoislandia - Escobar",
       meta: "Escobar · Vivienda unifamiliar",
-      desc: "Anteproyecto residencial sustentable con foco en integración con el paisaje e implementación de tecnología de visualización avanzada.",
-      images: [
-        "images/proyecto3.jpg"
-      ]
+      desc: "Anteproyecto residencial sustentable con integración de paisaje.",
+      images: ["images/proyecto3.jpg"]
     },
     project4: {
       title: "Lujan L4",
       meta: "Luján · Vivienda unifamiliar",
-      desc: "Diseño conceptual y legajo técnico de vivienda moderna sobre lote amplio.",
-      images: [
-        "images/proyecto4.jpg"
-      ]
+      desc: "Diseño conceptual y legajo técnico de vivienda moderna.",
+      images: ["images/proyecto4.jpg"]
     },
     project5: {
       title: "Barrio Alameda Lote 244",
       meta: "Buenos Aires · Vivienda unifamiliar",
       desc: "Estudio de fachadas e interiorismo integrado para proyecto en barrio cerrado.",
-      images: [
-        "images/proyecto5.jpg"
-      ]
+      images: ["images/proyecto5.jpg"]
     },
     project6: {
       title: "Barrio Cazal - Diseño Residencial",
       meta: "Buenos Aires · Vivienda unifamiliar",
       desc: "Visualización 3D y diseño espacial de vivienda contemporánea.",
-      images: [
-        "images/proyecto6.jpg"
-      ]
+      images: ["images/proyecto6.jpg"]
     }
   };
 
-  function openModal(projectId) {
-    const data = projectData[projectId];
-    if(!data) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('projectModal');
+    const closeBtn = document.getElementById('modalCloseBtn');
 
-    document.getElementById('modalTitle').innerText = data.title;
-    document.getElementById('modalMeta').innerText = data.meta;
-    document.getElementById('modalDesc').innerText = data.desc;
+    // Escuchar clic en cada elemento de la grilla mediante data-id
+    document.querySelectorAll('.project').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const data = projectData[id];
+        if(!data) return;
 
-    // Cargar galería
-    const galleryContainer = document.getElementById('modalGallery');
-    galleryContainer.innerHTML = '';
-    data.images.forEach(imgUrl => {
-      const img = document.createElement('img');
-      img.src = imgUrl;
-      img.alt = data.title;
-      galleryContainer.appendChild(img);
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalMeta').innerText = data.meta;
+        document.getElementById('modalDesc').innerText = data.desc;
+
+        const galleryContainer = document.getElementById('modalGallery');
+        galleryContainer.innerHTML = '';
+        data.images.forEach(imgUrl => {
+          const img = document.createElement('img');
+          img.src = imgUrl;
+          img.alt = data.title;
+          galleryContainer.appendChild(img);
+        });
+
+        const cta = document.getElementById('modalCta');
+        const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
+        cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
     });
 
-    // Configurar botón WhatsApp personalizado
-    const cta = document.getElementById('modalCta');
-    const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
-    cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
+    closeBtn.addEventListener('click', closeModal);
 
-    document.getElementById('projectModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) closeModal();
+    });
 
-  function closeModal() {
-    document.getElementById('projectModal').classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-
-  function closeModalOnOverlay(event) {
-    if(event.target.id === 'projectModal') {
-      closeModal();
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
-  }
+  });
 </script>
 
 </body>
