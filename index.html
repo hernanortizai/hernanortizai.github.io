@@ -1,95 +1,388 @@
-<script>
-  const projectData = {
-    project1: {
-      title: "CS 85",
-      meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Desarrollo de proyecto residencial enfocado en la integración volumétrica y optimización de luz natural.",
-      images: ["images/proyecto1.jpg"]
-    },
-    project2: {
-      title: "Chacras de la Reserva 156",
-      meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Propuesta arquitectónica de una sola planta en entorno suburbano con patios internos.",
-      images: ["images/proyecto2.jpg"]
-    },
-    project3: {
-      title: "Bali Ecoislandia - Escobar",
-      meta: "Escobar · Vivienda unifamiliar",
-      desc: "Anteproyecto residencial sustentable con integración de paisaje.",
-      images: ["images/proyecto3.jpg"]
-    },
-    project4: {
-      title: "Lujan L4",
-      meta: "Luján · Vivienda unifamiliar",
-      desc: "Diseño conceptual y legajo técnico de vivienda moderna.",
-      images: ["images/proyecto4.jpg"]
-    },
-    project5: {
-      title: "Barrio Alameda Lote 244",
-      meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Estudio de fachadas e interiorismo integrado para proyecto en barrio cerrado.",
-      images: ["images/proyecto5.jpg"]
-    },
-    project6: {
-      title: "Barrio Cazal - Diseño Residencial",
-      meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Visualización 3D y diseño espacial de vivienda contemporánea en entorno natural.",
-      images: [
-        "images/cazal-235/01.jpg",
-        "images/cazal-235/02.jpg",
-        "images/cazal-235/04.jpg",
-        "images/cazal-235/06.jpg",
-        "images/cazal-235/07.jpg",
-        "images/cazal-235/08.jpg",
-        "images/cazal-235/09.jpg"
-      ]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudio HZ · Arquitectura</title>
+  <style>
+    :root {
+      --bg-color: #f4f4f0;
+      --text-color: #1a1a1a;
+      --accent-color: #d35400;
+      --border-color: #e0e0de;
     }
-  };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('projectModal');
-    const closeBtn = document.getElementById('modalCloseBtn');
-    const projectsGrid = document.getElementById('projectsGrid');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    projectsGrid.addEventListener('click', (e) => {
-      const card = e.target.closest('.project');
-      if(!card) return;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
 
-      const id = card.getAttribute('data-id');
-      const data = projectData[id];
-      if(!data) return;
+    header {
+      max-width: 1200px;
+      margin: 0 auto 50px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+    }
 
-      document.getElementById('modalTitle').innerText = data.title;
-      document.getElementById('modalMeta').innerText = data.meta;
-      document.getElementById('modalDesc').innerText = data.desc;
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
 
-      const galleryContainer = document.getElementById('modalGallery');
-      galleryContainer.innerHTML = '';
-      data.images.forEach(imgUrl => {
-        const img = document.createElement('img');
-        img.src = imgUrl;
-        img.alt = data.title;
-        img.onerror = () => { img.style.display = 'none'; };
-        galleryContainer.appendChild(img);
+    header p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .project {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .project-img-container {
+      width: 100%;
+      height: 240px;
+      background-color: #eaeaea;
+      overflow: hidden;
+    }
+
+    .project-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-info h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .project-info p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      border-radius: 8px;
+      overflow-y: auto;
+      padding: 40px;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .modal-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .modal-header .meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .modal-desc {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .modal-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    #modalGallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .modal-cta {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .modal-cta:hover {
+      background-color: #b54600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .modal-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Estudio HZ</h1>
+    <p>Arquitectura y Diseño Residencial</p>
+  </header>
+
+  <main class="grid" id="projectsGrid">
+    <article class="project" data-id="project1">
+      <div class="project-img-container">
+        <img src="images/proyecto1.jpg" alt="CS 85">
+      </div>
+      <div class="project-info">
+        <h3>CS 85</h3>
+        <p>Buenos Aires · Vivienda unifamiliar</p>
+      </div>
+    </article>
+
+    <article class="project" data-id="project2">
+      <div class="project-img-container">
+        <img src="images/proyecto2.jpg" alt="Chacras de la Reserva 156">
+      </div>
+      <div class="project-info">
+        <h3>Chacras de la Reserva 156</h3>
+        <p>Buenos Aires · Vivienda unifamiliar</p>
+      </div>
+    </article>
+
+    <article class="project" data-id="project3">
+      <div class="project-img-container">
+        <img src="images/proyecto3.jpg" alt="Bali Ecoislandia - Escobar">
+      </div>
+      <div class="project-info">
+        <h3>Bali Ecoislandia - Escobar</h3>
+        <p>Escobar · Vivienda unifamiliar</p>
+      </div>
+    </article>
+
+    <article class="project" data-id="project4">
+      <div class="project-img-container">
+        <img src="images/proyecto4.jpg" alt="Lujan L4">
+      </div>
+      <div class="project-info">
+        <h3>Lujan L4</h3>
+        <p>Luján · Vivienda unifamiliar</p>
+      </div>
+    </article>
+
+    <article class="project" data-id="project5">
+      <div class="project-img-container">
+        <img src="images/proyecto5.jpg" alt="Barrio Alameda Lote 244">
+      </div>
+      <div class="project-info">
+        <h3>Barrio Alameda Lote 244</h3>
+        <p>Buenos Aires · Vivienda unifamiliar</p>
+      </div>
+    </article>
+
+    <article class="project" data-id="project6">
+      <div class="project-img-container">
+        <img src="images/cazal-235/01.jpg" alt="Barrio Cazal - Diseño Residencial">
+      </div>
+      <div class="project-info">
+        <h3>Barrio Cazal - Diseño Residencial</h3>
+        <p>Buenos Aires · Vivienda unifamiliar</p>
+      </div>
+    </article>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalTitle">Título del Proyecto</h2>
+        <p class="meta" id="modalMeta">Ubicación · Tipo</p>
+      </div>
+      <div class="modal-desc" id="modalDesc">
+        Descripción detallada del proyecto de arquitectura.
+      </div>
+      <div class="modal-gallery" id="modalGallery">
+        <!-- Las imágenes se cargan dinámicamente -->
+      </div>
+      <a href="#" class="modal-cta" id="modalCta" target="_blank">Consultar por un proyecto similar</a>
+    </div>
+  </div>
+
+  <script>
+    const projectData = {
+      project1: {
+        title: "CS 85",
+        meta: "Buenos Aires · Vivienda unifamiliar",
+        desc: "Desarrollo de proyecto residencial enfocado en la integración volumétrica y optimización de luz natural.",
+        images: ["images/proyecto1.jpg"]
+      },
+      project2: {
+        title: "Chacras de la Reserva 156",
+        meta: "Buenos Aires · Vivienda unifamiliar",
+        desc: "Propuesta arquitectónica de una sola planta en entorno suburbano con patios internos.",
+        images: ["images/proyecto2.jpg"]
+      },
+      project3: {
+        title: "Bali Ecoislandia - Escobar",
+        meta: "Escobar · Vivienda unifamiliar",
+        desc: "Anteproyecto residencial sustentable con integración de paisaje.",
+        images: ["images/proyecto3.jpg"]
+      },
+      project4: {
+        title: "Lujan L4",
+        meta: "Luján · Vivienda unifamiliar",
+        desc: "Diseño conceptual y legajo técnico de vivienda moderna.",
+        images: ["images/proyecto4.jpg"]
+      },
+      project5: {
+        title: "Barrio Alameda Lote 244",
+        meta: "Buenos Aires · Vivienda unifamiliar",
+        desc: "Estudio de fachadas e interiorismo integrado para proyecto en barrio cerrado.",
+        images: ["images/proyecto5.jpg"]
+      },
+      project6: {
+        title: "Barrio Cazal - Diseño Residencial",
+        meta: "Buenos Aires · Vivienda unifamiliar",
+        desc: "Visualización 3D y diseño espacial de vivienda contemporánea en entorno natural.",
+        images: [
+          "images/cazal-235/01.jpg",
+          "images/cazal-235/02.jpg",
+          "images/cazal-235/04.jpg",
+          "images/cazal-235/06.jpg",
+          "images/cazal-235/07.jpg",
+          "images/cazal-235/08.jpg",
+          "images/cazal-235/09.jpg"
+        ]
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('projectModal');
+      const closeBtn = document.getElementById('modalCloseBtn');
+      const projectsGrid = document.getElementById('projectsGrid');
+
+      projectsGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.project');
+        if(!card) return;
+
+        const id = card.getAttribute('data-id');
+        const data = projectData[id];
+        if(!data) return;
+
+        document.getElementById('modalTitle').innerText = data.title;
+        document.getElementById('modalMeta').innerText = data.meta;
+        document.getElementById('modalDesc').innerText = data.desc;
+
+        const galleryContainer = document.getElementById('modalGallery');
+        galleryContainer.innerHTML = '';
+        data.images.forEach(imgUrl => {
+          const img = document.createElement('img');
+          img.src = imgUrl;
+          img.alt = data.title;
+          img.onerror = () => { img.style.display = 'none'; };
+          galleryContainer.appendChild(img);
+        });
+
+        const cta = document.getElementById('modalCta');
+        const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
+        cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
       });
 
-      const cta = document.getElementById('modalCta');
-      const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en tu web y quiero consultar por algo similar.`);
-      cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
+      closeBtn.addEventListener('click', closeModal);
 
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
     });
-
-    closeBtn.addEventListener('click', closeModal);
-
-    modal.addEventListener('click', (e) => {
-      if(e.target === modal) closeModal();
-    });
-
-    function closeModal() {
-      modal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-  });
-</script>
+  </script>
+</body>
+</html>
