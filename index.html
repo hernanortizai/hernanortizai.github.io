@@ -429,9 +429,9 @@
         <span>Buenos Aires · Vivienda unifamiliar</span>
       </div>
     </div>
-    <!-- Proyecto 6 -->
+    <!-- Proyecto 6 (Barrio Cazal con miniatura de la imagen 01) -->
     <div class="project" data-id="project6">
-      <div class="project-img" style="background-image:url('images/proyecto6.jpg');"></div>
+      <div class="project-img" style="background-image:url('images/cazal-235/01.jpg');"></div>
       <div class="project-meta">
         <h3>Barrio Cazal - Diseño Residencial</h3>
         <span>Buenos Aires · Vivienda unifamiliar</span>
@@ -533,8 +533,16 @@
     project6: {
       title: "Barrio Cazal - Diseño Residencial",
       meta: "Buenos Aires · Vivienda unifamiliar",
-      desc: "Visualización 3D y diseño espacial de vivienda contemporánea.",
-      images: ["images/proyecto6.jpg"]
+      desc: "Visualización 3D y diseño espacial de vivienda contemporánea en entorno natural.",
+      images: [
+        "images/cazal-235/01.jpg",
+        "images/cazal-235/02.jpg",
+        "images/cazal-235/04.jpg",
+        "images/cazal-235/06.jpg",
+        "images/cazal-235/07.jpg",
+        "images/cazal-235/08.jpg",
+        "images/cazal-235/09.jpg"
+      ]
     }
   };
 
@@ -543,7 +551,6 @@
     const closeBtn = document.getElementById('modalCloseBtn');
     const projectsGrid = document.getElementById('projectsGrid');
 
-    // Delegación de eventos para capturar el clic en cualquier parte del cuadro (imagen, texto, título)
     projectsGrid.addEventListener('click', (e) => {
       const card = e.target.closest('.project');
       if(!card) return;
