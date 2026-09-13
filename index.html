@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estudio HZ · Arquitectura y Diseño Residencial</title>
-  <meta name="description" content="Estudio de arquitectura especializado en proyectos, anteproyectos, reformas y dirección de obra en Buenos Aires.">
+  <meta name="description" content="Estudio de arquitectura especializado en anteproyectos, proyectos y reformas en Buenos Aires.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* Flotantes de Contacto Rápido (WhatsApp & Email) */
     .floating-actions {
       position: fixed;
       bottom: 2rem;
@@ -73,7 +72,6 @@
       background-color: #1ebe5d;
     }
 
-    /* Header & Navbar Avanzado */
     header {
       position: sticky;
       top: 0;
@@ -145,109 +143,129 @@
       background-color: var(--accent) !important;
     }
 
-    /* Hero Section Exclusivo */
-    .hero {
+    /* Hero tipo ARQA / Slider destacado */
+    .hero-slider {
       max-width: 1350px;
-      margin: 0 auto;
-      padding: 6rem 2.5rem 4rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 4rem;
-      align-items: center;
+      margin: 2.5rem auto 0 auto;
+      padding: 0 2.5rem;
     }
 
-    .hero h1 {
-      font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+    .hero-slider-container {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      height: 480px;
+      background-color: #121212;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      display: flex;
+      align-items: flex-end;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(18,18,18,0) 30%, rgba(18,18,18,0.85) 100%);
+      z-index: 1;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 3;
+      padding: 3rem;
+      color: #fff;
+      max-width: 800px;
+    }
+
+    .slide-tax {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: -1.5px;
-      line-height: 1.05;
-      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
     }
 
-    .hero h1 span {
+    .slide-content h2 {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+
+    .slide-content h2 a {
+      color: #fff;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .slide-content h2 a:hover {
       color: var(--accent);
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      max-width: 620px;
+    .slide-content p {
+      font-size: 1.05rem;
+      color: #dcd6ce;
       font-weight: 300;
-      margin-bottom: 2.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .hero-actions {
+    .slider-dots {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2.5rem;
+      z-index: 10;
       display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .btn-primary {
-      background-color: var(--text-main);
-      color: #fff;
-      padding: 0.9rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
       gap: 0.5rem;
     }
 
-    .btn-primary:hover {
-      background-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background-color: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border);
-      padding: 0.9rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      border: none;
       transition: var(--transition);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--text-main);
-      background-color: rgba(0,0,0,0.02);
+    .dot.active {
+      background: #fff;
+      transform: scale(1.2);
     }
 
-    .hero-stats-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    }
-
-    .stat-box h3 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -1px;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-box p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0 !important;
-    }
-
-    /* Main Container & Sections */
     .main-container {
       max-width: 1350px;
       margin: 0 auto;
-      padding: 0 2.5rem 6rem 2.5rem;
+      padding: 4rem 2.5rem 6rem 2.5rem;
     }
 
     .section-view {
@@ -264,7 +282,19 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Filtros por Categoría simplificados */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
     .filter-bar {
       display: flex;
       gap: 1rem;
@@ -293,7 +323,6 @@
       border-color: var(--text-main);
     }
 
-    /* Grilla de Proyectos Estilizada */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -319,7 +348,7 @@
 
     .project-img-container {
       width: 100%;
-      height: 290px;
+      height: 280px;
       background-color: #f0eee6;
       overflow: hidden;
       position: relative;
@@ -389,7 +418,6 @@
       transform: rotate(-45deg);
     }
 
-    /* Vista "El Estudio" */
     .about-wrapper {
       display: flex;
       flex-direction: column;
@@ -469,7 +497,6 @@
       line-height: 1.7;
     }
 
-    /* Modal Envolvente */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -640,7 +667,6 @@
       transform: translateY(-2px);
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border);
       padding: 4rem 2.5rem;
@@ -668,12 +694,12 @@
       color: var(--text-main);
     }
 
-    /* Responsive */
     @media (max-width: 1024px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        padding: 4rem 1.5rem 2rem 1.5rem;
+      .hero-slider-container {
+        height: 380px;
+      }
+      .slide-content {
+        padding: 2rem;
       }
       .about-hero-grid {
         grid-template-columns: 1fr;
@@ -703,14 +729,9 @@
 </head>
 <body>
 
-  <!-- Botones Flotantes de Contacto Rápido -->
   <div class="floating-actions">
-    <a href="mailto:estudiohz.arquitectura@gmail.com" class="float-btn" title="Enviar Email" aria-label="Enviar Email">
-      &#9993;
-    </a>
-    <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto,%20anteproyecto%20o%20reforma." target="_blank" class="float-btn whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
-      &#128172;
-    </a>
+    <a href="mailto:estudiohz.arquitectura@gmail.com" class="float-btn" title="Enviar Email" aria-label="Enviar Email">&#9993;</a>
+    <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto,%20anteproyecto%20o%20reforma." target="_blank" class="float-btn whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">&#128172;</a>
   </div>
 
   <header>
@@ -720,36 +741,50 @@
         <a id="navProjects" class="active">Trabajos</a>
         <a id="navAbout">El Estudio</a>
         <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-        <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto." target="_blank" class="nav-cta">Contacto</a>
+        <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar." target="_blank" class="nav-cta">Contacto</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero / Cabecera -->
-  <section class="hero">
-    <div>
-      <h1>Anteproyectos, proyectos y <span>reformas</span>.</h1>
-      <p>Desarrollo integral de espacios residenciales. Transformamos ideas en obras concretas a través de un riguroso dominio técnico, estético y funcional.</p>
-      <div class="hero-actions">
-        <a href="#projectsGrid" class="btn-primary" onclick="document.getElementById('navProjects').click()">Ver Trabajos &rarr;</a>
-        <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20coordinar%20una%20consulta." target="_blank" class="btn-secondary">Iniciar Consulta</a>
+  <!-- Slider Destacado Inspirado en Referencia (ARQA) -->
+  <section class="hero-slider" id="heroSliderSection">
+    <div class="hero-slider-container">
+      <div class="slide active" style="background-image: url('images/cazal-235/01.jpg');">
+        <div class="slide-content">
+          <span class="slide-tax">Escobar · Proyecto</span>
+          <h2><a href="#" class="slider-trigger" data-id="project6">Barrio Cazal</a></h2>
+          <p>Desarrollo y visualización espacial de vivienda contemporánea en entorno natural de Escobar. Énfasis en la espacialidad y materialidad.</p>
+        </div>
       </div>
-    </div>
-    <div class="hero-stats-card">
-      <div class="stat-box">
-        <h3>+15</h3>
-        <p>Obras y Proyectos</p>
+      <div class="slide" style="background-image: url('images/proyecto3.jpg');">
+        <div class="slide-content">
+          <span class="slide-tax">Escobar · Anteproyecto</span>
+          <h2><a href="#" class="slider-trigger" data-id="project3">Bali Ecoislandia</a></h2>
+          <p>Anteproyecto residencial con criterios bioclimáticos e integración paisajística. Uso de envolventes eficientes y ventilaciones cruzadas.</p>
+        </div>
       </div>
-      <div class="stat-box">
-        <h3>100%</h3>
-        <p>A medida</p>
+      <div class="slide" style="background-image: url('images/proyecto1.jpg');">
+        <div class="slide-content">
+          <span class="slide-tax">Buenos Aires · Proyecto</span>
+          <h2><a href="#" class="slider-trigger" data-id="project1">CS 85</a></h2>
+          <p>Desarrollo volumétrico enfocado en la pureza de líneas y la optimización de la luz natural en torno a patios internos.</p>
+        </div>
+      </div>
+      <div class="slider-dots" id="sliderDots">
+        <button class="dot active" data-index="0"></button>
+        <button class="dot" data-index="1"></button>
+        <button class="dot" data-index="2"></button>
       </div>
     </div>
   </section>
 
   <main class="main-container">
-    <!-- Vista Proyectos, Anteproyectos y Reformas -->
     <section id="sectionProjects" class="section-view active">
+      <div style="margin-bottom: 2.5rem;">
+        <h1 class="section-title">Anteproyectos, proyectos y reformas</h1>
+        <p class="section-desc">Explorá nuestra colección en continuo crecimiento de obras residenciales y propuestas conceptuales.</p>
+      </div>
+
       <div class="filter-bar">
         <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="anteproyecto">Anteproyectos</button>
@@ -844,14 +879,13 @@
       </div>
     </section>
 
-    <!-- Vista "El Estudio" -->
     <section id="sectionAbout" class="section-view">
       <div class="about-wrapper">
         <div class="about-hero-grid">
           <div class="about-text">
             <h2>Rigurosidad conceptual, espacial y material.</h2>
             <p>En <strong>Estudio HZ</strong> abordamos la arquitectura desde una perspectiva integral. Cada encargo responde de manera única a las necesidades del comitente, optimizando la luz natural, la materialidad pura y la integración con el entorno.</p>
-            <p>Conectá con nosotros y seguí nuestros procesos de trabajo diarios a través de nuestro perfil oficial en <a href="https://www.instagram.com/" target="_blank" style="color: var(--accent); font-weight: 600; text-decoration: none;">Instagram &rarr;</a></p>
+            <p>Seguí nuestros procesos diarios en <a href="https://www.instagram.com/" target="_blank" style="color: var(--accent); font-weight: 600; text-decoration: none;">Instagram &rarr;</a></p>
           </div>
           <div class="about-img-box">
             <img src="images/proyecto1.jpg" alt="Estudio HZ Arquitectura" loading="lazy">
@@ -876,7 +910,6 @@
     </section>
   </main>
 
-  <!-- Modal Detallado de Proyectos -->
   <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true">
     <div class="modal-content">
       <button class="modal-close" id="modalCloseBtn" aria-label="Cerrar modal">&times;</button>
@@ -887,9 +920,7 @@
       </div>
 
       <div class="modal-body-grid">
-        <div class="modal-desc" id="modalDesc">
-          Descripción detallada del proyecto de arquitectura.
-        </div>
+        <div class="modal-desc" id="modalDesc">Descripción detallada del proyecto.</div>
         <div class="modal-specs">
           <h4>Ficha Técnica</h4>
           <div class="spec-row">
@@ -907,9 +938,7 @@
         </div>
       </div>
 
-      <div class="modal-gallery" id="modalGallery">
-        <!-- Las imágenes se cargan dinámicamente -->
-      </div>
+      <div class="modal-gallery" id="modalGallery"></div>
 
       <div class="modal-footer">
         <p style="font-size: 0.95rem; color: var(--text-muted);">¿Te interesa una propuesta similar?</p>
@@ -950,7 +979,7 @@
         title: "Bali Ecoislandia",
         meta: "Escobar · Anteproyecto",
         service: "Anteproyecto",
-        desc: "Anteproyecto residencial con criterios bioclimáticos e integración paisajística. Uso de envolventes eficientes y ventilaciones cruzadas controladas.",
+        desc: "Anteproyecto residencial con criterios bioclimáticos e integración paisajística en Escobar. Uso de envolventes eficientes y ventilaciones cruzadas controladas.",
         images: ["images/proyecto3.jpg"]
       },
       project4: {
@@ -985,16 +1014,48 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Slider dinámico tipo ARQA
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      let currentSlide = 0;
+      let slideInterval;
+
+      const showSlide = (index) => {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentSlide = index;
+      };
+
+      const nextSlide = () => {
+        let index = (currentSlide + 1) % slides.length;
+        showSlide(index);
+      };
+
+      slideInterval = setInterval(nextSlide, 5000);
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          clearInterval(slideInterval);
+          showSlide(idx);
+          slideInterval = setInterval(nextSlide, 5000);
+        });
+      });
+
+      // Navegación entre vistas
       const navProjects = document.getElementById('navProjects');
       const navAbout = document.getElementById('navAbout');
       const sectionProjects = document.getElementById('sectionProjects');
       const sectionAbout = document.getElementById('sectionAbout');
+      const heroSliderSection = document.getElementById('heroSliderSection');
 
       navProjects.addEventListener('click', () => {
         navProjects.classList.add('active');
         navAbout.classList.remove('active');
         sectionProjects.classList.add('active');
         sectionAbout.classList.remove('active');
+        heroSliderSection.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
@@ -1003,9 +1064,11 @@
         navProjects.classList.remove('active');
         sectionAbout.classList.add('active');
         sectionProjects.classList.remove('active');
+        heroSliderSection.style.display = 'none';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
+      // Filtros
       const filterBtns = document.querySelectorAll('.filter-btn');
       const projectCards = document.querySelectorAll('.project');
 
@@ -1025,15 +1088,11 @@
         });
       });
 
+      // Modal
       const modal = document.getElementById('projectModal');
       const closeBtn = document.getElementById('modalCloseBtn');
-      const projectsGrid = document.getElementById('projectsGrid');
-
-      projectsGrid.addEventListener('click', (e) => {
-        const card = e.target.closest('.project');
-        if(!card) return;
-
-        const id = card.getAttribute('data-id');
+      
+      const openProjectModal = (id) => {
         const data = projectData[id];
         if(!data) return;
 
@@ -1058,6 +1117,19 @@
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+      };
+
+      document.getElementById('projectsGrid').addEventListener('click', (e) => {
+        const card = e.target.closest('.project');
+        if(!card) return;
+        openProjectModal(card.getAttribute('data-id'));
+      });
+
+      document.querySelectorAll('.slider-trigger').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          openProjectModal(el.getAttribute('data-id'));
+        });
       });
 
       const closeModal = () => {
@@ -1066,11 +1138,9 @@
       };
 
       closeBtn.addEventListener('click', closeModal);
-
       modal.addEventListener('click', (e) => {
         if(e.target === modal) closeModal();
       });
-
       document.addEventListener('keydown', (e) => {
         if(e.key === 'Escape' && modal.classList.contains('active')) {
           closeModal();
