@@ -143,7 +143,6 @@
       background-color: var(--accent) !important;
     }
 
-    /* Hero tipo ARQA / Slider destacado */
     .hero-slider {
       max-width: 1350px;
       margin: 2.5rem auto 0 auto;
@@ -746,14 +745,13 @@
     </div>
   </header>
 
-  <!-- Slider Destacado Inspirado en Referencia (ARQA) -->
   <section class="hero-slider" id="heroSliderSection">
     <div class="hero-slider-container">
-      <div class="slide active" style="background-image: url('images/cazal-235/01.jpg');">
+      <div class="slide active" style="background-image: url('images/chacras-de-la-reserva-156/01.jpg');">
         <div class="slide-content">
-          <span class="slide-tax">Escobar · Proyecto</span>
-          <h2><a href="#" class="slider-trigger" data-id="project6">Barrio Cazal</a></h2>
-          <p>Desarrollo y visualización espacial de vivienda contemporánea en entorno natural de Escobar. Énfasis en la espacialidad y materialidad.</p>
+          <span class="slide-tax">Buenos Aires · Proyecto</span>
+          <h2><a href="#" class="slider-trigger" data-id="project2">Chacras de la Reserva 156</a></h2>
+          <p>Propuesta arquitectónica resuelta en una sola planta dentro de un entorno suburbano abierto. Galerías expansivas y conexión directa con el verde.</p>
         </div>
       </div>
       <div class="slide" style="background-image: url('images/proyecto3.jpg');">
@@ -763,11 +761,11 @@
           <p>Anteproyecto residencial con criterios bioclimáticos e integración paisajística. Uso de envolventes eficientes y ventilaciones cruzadas.</p>
         </div>
       </div>
-      <div class="slide" style="background-image: url('images/proyecto1.jpg');">
+      <div class="slide" style="background-image: url('images/cazal-235/01.jpg');">
         <div class="slide-content">
-          <span class="slide-tax">Buenos Aires · Proyecto</span>
-          <h2><a href="#" class="slider-trigger" data-id="project1">CS 85</a></h2>
-          <p>Desarrollo volumétrico enfocado en la pureza de líneas y la optimización de la luz natural en torno a patios internos.</p>
+          <span class="slide-tax">Escobar · Proyecto</span>
+          <h2><a href="#" class="slider-trigger" data-id="project6">Barrio Cazal</a></h2>
+          <p>Desarrollo y visualización espacial de vivienda contemporánea en entorno natural de Escobar. Énfasis en la espacialidad y materialidad.</p>
         </div>
       </div>
       <div class="slider-dots" id="sliderDots">
@@ -810,7 +808,7 @@
         <article class="project" data-id="project2" data-category="proyecto">
           <div class="project-img-container">
             <span class="project-tag">Buenos Aires</span>
-            <img src="images/proyecto2.jpg" alt="Chacras de la Reserva 156" loading="lazy">
+            <img src="images/chacras-de-la-reserva-156/01.jpg" alt="Chacras de la Reserva 156" loading="lazy">
           </div>
           <div class="project-info">
             <div>
@@ -973,7 +971,23 @@
         meta: "Buenos Aires · Proyecto",
         service: "Proyecto",
         desc: "Propuesta arquitectónica resuelta en una sola planta dentro de un entorno suburbano abierto. Se priorizaron galerías expansivas y una fuerte conexión directa con el paisaje verde circundante.",
-        images: ["images/proyecto2.jpg"]
+        images: [
+          "images/chacras-de-la-reserva-156/01.jpg",
+          "images/chacras-de-la-reserva-156/02.jpg",
+          "images/chacras-de-la-reserva-156/03.jpg",
+          "images/chacras-de-la-reserva-156/04.jpg",
+          "images/chacras-de-la-reserva-156/05.jpg",
+          "images/chacras-de-la-reserva-156/06.jpg",
+          "images/chacras-de-la-reserva-156/07.jpg",
+          "images/chacras-de-la-reserva-156/08.jpg",
+          "images/chacras-de-la-reserva-156/09.jpg",
+          "images/chacras-de-la-reserva-156/10.jpg",
+          "images/chacras-de-la-reserva-156/11.jpg",
+          "images/chacras-de-la-reserva-156/12.jpg",
+          "images/chacras-de-la-reserva-156/13.jpg",
+          "images/chacras-de-la-reserva-156/14.jpg",
+          "images/chacras-de-la-reserva-156/15.jpg"
+        ]
       },
       project3: {
         title: "Bali Ecoislandia",
@@ -1014,7 +1028,6 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Slider dinámico tipo ARQA
       const slides = document.querySelectorAll('.slide');
       const dots = document.querySelectorAll('.dot');
       let currentSlide = 0;
@@ -1043,7 +1056,6 @@
         });
       });
 
-      // Navegación entre vistas
       const navProjects = document.getElementById('navProjects');
       const navAbout = document.getElementById('navAbout');
       const sectionProjects = document.getElementById('sectionProjects');
@@ -1068,7 +1080,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // Filtros
       const filterBtns = document.querySelectorAll('.filter-btn');
       const projectCards = document.querySelectorAll('.project');
 
@@ -1088,7 +1099,6 @@
         });
       });
 
-      // Modal
       const modal = document.getElementById('projectModal');
       const closeBtn = document.getElementById('modalCloseBtn');
       
