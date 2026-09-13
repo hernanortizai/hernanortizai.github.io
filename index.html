@@ -7,7 +7,7 @@
   <meta name="description" content="Estudio de arquitectura especializado en anteproyectos, proyectos y reformas en Buenos Aires.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -15,6 +15,7 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Fraunces"', 'serif'],
           },
           colors: {
             sand: {
@@ -31,18 +32,25 @@
   </script>
   <style>
     :root {
-      --bg-color: #f7f6f2;
+      --bg-color: #f6f4ef;
       --card-bg: #ffffff;
-      --text-main: #1c1c1a;
-      --text-muted: #666660;
-      --accent: #b85d34;
-      --border-color: #e6e4dc;
+      --text-main: #211f1a;
+      --text-muted: #6b6559;
+      --accent: #9a4b2e;
+      --accent-soft: #b8623f;
+      --border-color: #e3ddcd;
     }
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
+    h1, h2, h3, .font-serif { font-family: 'Fraunces', serif; }
+ 
+    ::selection { background: #e5d9c5; }
+ 
+    a, button { transition: all .25s ease; }
+ 
     .modal {
       display: none;
       opacity: 0;
@@ -57,40 +65,93 @@
       height: auto;
       object-fit: cover;
       margin-bottom: 1rem;
-      border-radius: 4px;
+      border-radius: 6px;
+    }
+ 
+    /* card hover treatment */
+    .project-card .img-wrap { position: relative; overflow: hidden; }
+    .project-card .img-wrap img {
+      transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+      filter: grayscale(15%);
+    }
+    .project-card:hover .img-wrap img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+    .project-card .img-wrap::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(33,31,26,.55), rgba(33,31,26,0) 45%);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .project-card:hover .img-wrap::after{ opacity: 1; }
+ 
+    .project-card .hover-tag{
+      position:absolute; bottom:14px; left:16px; right:16px;
+      color:#fff; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+      opacity:0; transform: translateY(8px);
+      transition: all .35s ease;
+    }
+    .project-card:hover .hover-tag{ opacity:1; transform: translateY(0); }
+ 
+    .btn-primary{
+      background: var(--text-main);
+    }
+    .btn-primary:hover{ background: var(--accent); }
+ 
+    .btn-accent{ background: var(--accent); }
+    .btn-accent:hover{ background: var(--accent-soft); }
+ 
+    @media (prefers-reduced-motion: reduce) {
+      *, .project-card .img-wrap img { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
 <body class="antialiased selection:bg-stone-200">
-
+ 
   <!-- HEADER -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-[#f7f6f2]/80 backdrop-blur-md border-b border-[#e6e4dc]">
+  <header class="fixed top-0 left-0 w-full z-50 bg-[#f6f4ef]/85 backdrop-blur-md border-b border-[#e3ddcd]">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="#" class="text-xl font-bold tracking-tight uppercase">Estudio HZ</a>
+      <a href="#" class="text-xl font-semibold tracking-tight uppercase font-serif">Estudio <span style="color:var(--accent)">HZ</span></a>
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-600">
         <a href="#proyectos" class="hover:text-stone-900 transition">Proyectos</a>
         <a href="#estudio" class="hover:text-stone-900 transition">El Estudio</a>
         <a href="#contacto" class="hover:text-stone-900 transition">Contacto</a>
       </nav>
-      <a href="https://wa.me/5491164675558" target="_blank" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider bg-stone-900 text-white rounded-full hover:bg-stone-800 transition">
-        WhatsApp Directo
-      </a>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/5491164675558" target="_blank" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider btn-primary text-white rounded-full transition">
+          WhatsApp Directo
+        </a>
+        <button id="menuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-stone-300" aria-label="Abrir menú">
+          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- MOBILE NAV -->
+    <div id="mobileNav" class="hidden md:hidden border-t border-[#e3ddcd] bg-[#f6f4ef]">
+      <div class="px-6 py-6 flex flex-col gap-5 text-base font-medium">
+        <a href="#proyectos" class="mobile-link">Proyectos</a>
+        <a href="#estudio" class="mobile-link">El Estudio</a>
+        <a href="#contacto" class="mobile-link">Contacto</a>
+        <a href="https://wa.me/5491164675558" target="_blank" class="inline-flex items-center justify-center px-5 py-3 text-xs font-semibold uppercase tracking-wider btn-primary text-white rounded-full">WhatsApp Directo</a>
+      </div>
     </div>
   </header>
-
+ 
   <main class="pt-20">
     <!-- HERO -->
     <section class="max-w-7xl mx-auto px-6 py-24 md:py-32">
       <div class="max-w-3xl">
-        <span class="text-xs font-bold uppercase tracking-widest text-[#b85d34] mb-4 block">Arquitectura & Diseño Residencial</span>
-        <h1 class="text-4xl md:text-6xl font-light tracking-tight leading-tight mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest mb-4 block" style="color:var(--accent)">Arquitectura & Diseño Residencial</span>
+        <h1 class="text-4xl md:text-6xl font-normal tracking-tight leading-[1.08] mb-8">
           Diseñamos espacios con identidad, materialidad honesta y relación directa con el entorno.
         </h1>
-        <p class="text-lg text-stone-600 font-normal leading-relaxed mb-10">
+        <p class="text-lg text-stone-600 font-normal leading-relaxed mb-10 max-w-xl">
           Desarrollamos proyectos residenciales, anteproyectos y reformas integrales con un enfoque contemporáneo y riguroso.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#proyectos" class="px-8 py-4 bg-stone-900 text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-800 transition">
+          <a href="#proyectos" class="px-8 py-4 btn-primary text-white text-xs font-bold uppercase tracking-wider rounded-full transition">
             Ver Proyectos
           </a>
           <a href="#contacto" class="px-8 py-4 border border-stone-300 text-stone-900 text-xs font-bold uppercase tracking-wider rounded-full hover:border-stone-900 transition">
@@ -99,82 +160,88 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- PROYECTOS -->
-    <section id="proyectos" class="max-w-7xl mx-auto px-6 py-16 border-t border-[#e6e4dc]">
+    <section id="proyectos" class="max-w-7xl mx-auto px-6 py-16 border-t border-[#e3ddcd]">
       <div class="flex justify-between items-end mb-12">
         <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-[#b85d34] mb-2 block">Portafolio</span>
-          <h2 class="text-3xl font-light tracking-tight">Obras y Trabajos</h2>
+          <span class="text-xs font-bold uppercase tracking-widest mb-2 block" style="color:var(--accent)">Portafolio</span>
+          <h2 class="text-3xl font-normal tracking-tight">Obras y Trabajos</h2>
         </div>
         <span class="text-xs text-stone-500 uppercase tracking-widest hidden md:block">Selección 2024 - 2026</span>
       </div>
-
+ 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
+ 
         <!-- Project 1 -->
-        <div onclick="openProjectModal('project1')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/proyecto1.jpg" alt="CS 85" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project1')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/cs-85/01.jpg" alt="CS 85" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Buenos Aires · Proyecto</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">CS 85</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">CS 85</h3>
         </div>
-
+ 
         <!-- Project 2 -->
-        <div onclick="openProjectModal('project2')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/chacras-de-la-reserva-156/01.jpg" alt="Chacras de la Reserva 156" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project2')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/chacras-de-la-reserva-156/01.jpg" alt="Chacras de la Reserva 156" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Buenos Aires · Proyecto</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">Chacras de la Reserva 156</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">Chacras de la Reserva 156</h3>
         </div>
-
+ 
         <!-- Project 3 -->
-        <div onclick="openProjectModal('project3')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/proyecto3.jpg" alt="Bali Ecoislandia" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project3')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/bali-ecoislandia/01.jpg" alt="Bali Ecoislandia" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Escobar · Anteproyecto</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">Bali Ecoislandia</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">Bali Ecoislandia</h3>
         </div>
-
+ 
         <!-- Project 4 -->
-        <div onclick="openProjectModal('project4')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/proyecto4.jpg" alt="Lujan L4" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project4')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/lujan-l4/01.jpg" alt="Lujan L4" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Luján · Anteproyecto</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">Lujan L4</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">Lujan L4</h3>
         </div>
-
+ 
         <!-- Project 5 -->
-        <div onclick="openProjectModal('project5')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/proyecto5.jpg" alt="Barrio Alameda Lote 244" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project5')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/barrio-alameda-244/01.jpg" alt="Barrio Alameda Lote 244" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Buenos Aires · Reforma</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">Barrio Alameda Lote 244</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">Barrio Alameda Lote 244</h3>
         </div>
-
+ 
         <!-- Project 6 -->
-        <div onclick="openProjectModal('project6')" class="group cursor-pointer">
-          <div class="aspect-[4/3] bg-stone-200 overflow-hidden mb-4 rounded-lg">
-            <img src="images/cazal-235/01.jpg" alt="Barrio Cazal" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div onclick="openProjectModal('project6')" class="project-card group cursor-pointer">
+          <div class="img-wrap aspect-[4/3] bg-stone-200 mb-4 rounded-xl">
+            <img src="images/cazal-235/01.jpg" alt="Barrio Cazal" class="w-full h-full object-cover rounded-xl">
+            <span class="hover-tag">Ver galería del proyecto →</span>
           </div>
           <span class="text-[11px] uppercase tracking-wider text-stone-500 block mb-1">Buenos Aires - Escobar · Proyecto</span>
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-[#b85d34] transition">Barrio Cazal</h3>
+          <h3 class="text-xl font-medium tracking-tight group-hover:text-[color:var(--accent)] transition">Barrio Cazal</h3>
         </div>
-
+ 
       </div>
     </section>
-
+ 
     <!-- ESTUDIO -->
-    <section id="estudio" class="max-w-7xl mx-auto px-6 py-24 border-t border-[#e6e4dc]">
+    <section id="estudio" class="max-w-7xl mx-auto px-6 py-24 border-t border-[#e3ddcd]">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-[#b85d34] mb-4 block">Filosofía</span>
-          <h2 class="text-3xl font-light tracking-tight mb-6">Arquitectura pensada desde la materialidad y la escala humana.</h2>
+          <span class="text-xs font-bold uppercase tracking-widest mb-4 block" style="color:var(--accent)">Filosofía</span>
+          <h2 class="text-3xl font-normal tracking-tight mb-6">Arquitectura pensada desde la materialidad y la escala humana.</h2>
           <p class="text-stone-600 leading-relaxed mb-4">
             En Estudio HZ concebimos cada encargo como una respuesta única a un contexto específico. Combinamos rigor técnico con una estética depurada, priorizando la entrada de luz natural, las visuales limpias y el confort térmico.
           </p>
@@ -182,33 +249,33 @@
             Acompañamos todo el proceso: desde las primeras ideas conceptuales y anteproyectos hasta el desarrollo de la documentación técnica y dirección de obra.
           </p>
         </div>
-        <div class="bg-stone-200 aspect-[4/3] rounded-lg overflow-hidden">
-          <img src="images/proyecto1.jpg" alt="Estudio HZ" class="w-full h-full object-cover grayscale">
+        <div class="bg-stone-200 aspect-[4/3] rounded-xl overflow-hidden">
+          <img src="images/cs-85/01.jpg" alt="Estudio HZ" class="w-full h-full object-cover grayscale">
         </div>
       </div>
     </section>
-
+ 
     <!-- CONTACTO -->
-    <section id="contacto" class="max-w-7xl mx-auto px-6 py-24 border-t border-[#e6e4dc]">
+    <section id="contacto" class="max-w-7xl mx-auto px-6 py-24 border-t border-[#e3ddcd]">
       <div class="max-w-2xl mx-auto text-center">
-        <span class="text-xs font-bold uppercase tracking-widest text-[#b85d34] mb-4 block">Hablemos</span>
-        <h2 class="text-4xl font-light tracking-tight mb-6">¿Tenés un proyecto en mente?</h2>
+        <span class="text-xs font-bold uppercase tracking-widest mb-4 block" style="color:var(--accent)">Hablemos</span>
+        <h2 class="text-4xl font-normal tracking-tight mb-6">¿Tenés un proyecto en mente?</h2>
         <p class="text-stone-600 mb-10">Poneos en contacto para conversar sobre las posibilidades de tu terreno, propiedad o anteproyecto.</p>
-        <a href="https://wa.me/5491164675558" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-stone-900 text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-stone-800 transition">
+        <a href="https://wa.me/5491164675558" target="_blank" class="inline-flex items-center justify-center px-8 py-4 btn-accent text-white text-xs font-bold uppercase tracking-wider rounded-full transition">
           Iniciar WhatsApp Directo
         </a>
       </div>
     </section>
   </main>
-
+ 
   <!-- FOOTER -->
-  <footer class="border-t border-[#e6e4dc] py-12">
+  <footer class="border-t border-[#e3ddcd] py-12">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
       <p>© 2026 Estudio HZ. Todos los derechos reservados.</p>
       <p class="mt-4 md:mt-0">Buenos Aires, Argentina</p>
     </div>
   </footer>
-
+ 
   <!-- MODAL -->
   <div id="projectModal" class="modal fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-3xl rounded-xl overflow-hidden shadow-2xl relative my-8 max-h-[90vh] flex flex-col">
@@ -216,14 +283,14 @@
       <!-- Modal Header -->
       <div class="p-6 border-b border-stone-200 flex justify-between items-center bg-white sticky top-0 z-10">
         <div>
-          <span id="modalMeta" class="text-[11px] uppercase tracking-wider text-[#b85d34] font-semibold block mb-1"></span>
-          <h3 id="modalTitle" class="text-2xl font-light tracking-tight text-stone-900"></h3>
+          <span id="modalMeta" class="text-[11px] uppercase tracking-wider font-semibold block mb-1" style="color:var(--accent)"></span>
+          <h3 id="modalTitle" class="text-2xl font-normal tracking-tight text-stone-900 font-serif"></h3>
         </div>
         <button onclick="closeProjectModal()" class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center hover:bg-stone-200 transition text-stone-700">
           ✕
         </button>
       </div>
-
+ 
       <!-- Modal Body -->
       <div class="p-6 overflow-y-auto flex-1 space-y-6">
         <p id="modalDesc" class="text-stone-600 leading-relaxed"></p>
@@ -239,7 +306,7 @@
             <span class="font-medium text-stone-800">Buenos Aires</span>
           </div>
         </div>
-
+ 
         <!-- Galería de Imágenes -->
         <div>
           <h4 class="text-xs uppercase tracking-widest text-stone-400 font-semibold mb-4">Galería del Proyecto</h4>
@@ -248,82 +315,82 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- Modal Footer -->
       <div class="p-6 border-t border-stone-200 bg-stone-50 flex justify-end sticky bottom-0">
-        <a id="modalCta" href="#" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-[#b85d34] text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-[#a24e2b] transition text-center">
+        <a id="modalCta" href="#" target="_blank" class="w-full sm:w-auto px-6 py-3 btn-accent text-white text-xs font-bold uppercase tracking-wider rounded-full transition text-center">
           Consultar por WhatsApp sobre este proyecto
         </a>
       </div>
-
+ 
     </div>
   </div>
-
+ 
   <!-- JAVASCRIPT -->
   <script>
+    // Generador auxiliar automático de rutas de imágenes de 01 a 15 para carpetas organizadas
+    const generateImageArray = (folderName, count = 15) => {
+      const images = [];
+      for (let i = 1; i <= count; i++) {
+        const num = i < 10 ? `0${i}` : `${i}`;
+        images.push(`images/${folderName}/${num}.jpg`);
+      }
+      return images;
+    };
+ 
+    // IMPORTANTE: "folder" debe coincidir EXACTO con el nombre real de la carpeta
+    // dentro de /images (mismas mayúsculas/minúsculas, guiones, sin espacios).
     const projectData = {
       project1: {
         title: "CS 85",
         meta: "Buenos Aires · Proyecto",
         service: "Proyecto",
         desc: "Desarrollo volumétrico enfocado en la pureza de líneas y la optimización de la luz natural. El proyecto resuelve la planta en torno a patios internos que conectan visualmente las áreas sociales con el exterior.",
-        images: ["images/proyecto1.jpg"]
+        folder: "cs-85"
       },
       project2: {
         title: "Chacras de la Reserva 156",
         meta: "Buenos Aires · Proyecto",
         service: "Proyecto",
         desc: "Propuesta arquitectónica resuelta en una sola planta dentro de un entorno suburbano abierto. Se priorizaron galerías expansivas y una fuerte conexión directa con el paisaje verde circundante.",
-        images: [
-          "images/chacras-de-la-reserva-156/01.jpg",
-          "images/chacras-de-la-reserva-156/02.jpg",
-          "images/chacras-de-la-reserva-156/03.jpg"
-        ]
+        folder: "chacras-de-la-reserva-156"
       },
       project3: {
         title: "Bali Ecoislandia",
         meta: "Escobar · Anteproyecto",
         service: "Anteproyecto",
         desc: "Anteproyecto residencial con criterios bioclimáticos e integración paisajística en Escobar. Uso de envolventes eficientes y ventilaciones cruzadas controladas.",
-        images: ["images/proyecto3.jpg"]
+        folder: "bali-ecoislandia"
       },
       project4: {
         title: "Lujan L4",
         meta: "Luján · Anteproyecto",
         service: "Anteproyecto",
         desc: "Diseño conceptual y legajo preliminar para vivienda moderna. Estructura sintética y volúmenes puros en relación directa con el entorno.",
-        images: ["images/proyecto4.jpg"]
+        folder: "lujan-l4"
       },
       project5: {
         title: "Barrio Alameda Lote 244",
         meta: "Buenos Aires · Reforma",
         service: "Reforma",
         desc: "Estudio integral de fachadas, reestructuración espacial y diseño interior para lote en barrio cerrado.",
-        images: ["images/proyecto5.jpg"]
+        folder: "barrio-alameda-244"
       },
       project6: {
         title: "Barrio Cazal",
         meta: "Buenos Aires - Escobar · Proyecto",
         service: "Proyecto",
         desc: "Desarrollo y visualización espacial de vivienda contemporánea en entorno natural de Escobar. Énfasis en la espacialidad y materialidad.",
-        images: [
-          "images/cazal-235/01.jpg",
-          "images/cazal-235/02.jpg",
-          "images/cazal-235/04.jpg",
-          "images/cazal-235/06.jpg",
-          "images/cazal-235/07.jpg",
-          "images/cazal-235/08.jpg",
-          "images/cazal-235/09.jpg"
-        ]
+        folder: "cazal-235"
       }
     };
-
+ 
     const modal = document.getElementById('projectModal');
-
+ 
     const openProjectModal = (id) => {
       const data = projectData[id];
       if(!data) return;
-
+ 
       document.getElementById('modalTitle').innerText = data.title;
       document.getElementById('modalMeta').innerText = data.meta;
       document.getElementById('modalDesc').innerText = data.desc;
@@ -331,38 +398,54 @@
       
       const gallery = document.getElementById('modalGallery');
       gallery.innerHTML = '';
-      data.images.forEach(imgSrc => {
+      
+      generateImageArray(data.folder, 15).forEach(imgSrc => {
         const img = document.createElement('img');
         img.src = imgSrc;
         img.alt = data.title;
         img.loading = 'lazy';
+        // Si la imagen todavía no fue subida/cargada a la carpeta, se oculta automáticamente sin romper el diseño
+        img.onerror = function() {
+          this.style.display = 'none';
+        };
         gallery.appendChild(img);
       });
-
+ 
       const whatsappText = encodeURIComponent(`Hola! Me interesa conversar sobre un proyecto similar a ${data.title}.`);
       document.getElementById('modalCta').href = `https://wa.me/5491164675558?text=${whatsappText}`;
-
+ 
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     };
-
+ 
     const closeProjectModal = () => {
       modal.classList.remove('active');
       document.body.style.overflow = 'auto';
     };
-
+ 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         closeProjectModal();
       }
     });
-
+ 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeProjectModal();
       }
     });
+ 
+    // Menú móvil
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileNav.classList.add('hidden'));
+    });
   </script>
-
+ 
 </body>
 </html>
+ 
