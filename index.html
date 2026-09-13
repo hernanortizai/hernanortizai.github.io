@@ -264,7 +264,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Filtros por Categoría de Servicio (Proyectos, Anteproyectos, Reformas) */
+    /* Filtros por Categoría simplificados */
     .filter-bar {
       display: flex;
       gap: 1rem;
@@ -389,7 +389,7 @@
       transform: rotate(-45deg);
     }
 
-    /* Vista "El Estudio" Ampliada y Profesional con Enlace a Instagram */
+    /* Vista "El Estudio" */
     .about-wrapper {
       display: flex;
       flex-direction: column;
@@ -469,7 +469,7 @@
       line-height: 1.7;
     }
 
-    /* Modal Envolvente Profesional */
+    /* Modal Envolvente */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -708,7 +708,7 @@
     <a href="mailto:estudiohz.arquitectura@gmail.com" class="float-btn" title="Enviar Email" aria-label="Enviar Email">
       &#9993;
     </a>
-    <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto%20o%20reforma." target="_blank" class="float-btn whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
+    <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20consultar%20por%20un%20proyecto,%20anteproyecto%20o%20reforma." target="_blank" class="float-btn whatsapp" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp">
       &#128172;
     </a>
   </div>
@@ -725,13 +725,13 @@
     </div>
   </header>
 
-  <!-- Hero / Cabecera con Enfoque en Proyectos, Anteproyectos y Reformas -->
+  <!-- Hero / Cabecera -->
   <section class="hero">
     <div>
-      <h1>Arquitectura, anteproyectos y <span>reformas</span> con identidad.</h1>
+      <h1>Anteproyectos, proyectos y <span>reformas</span>.</h1>
       <p>Desarrollo integral de espacios residenciales. Transformamos ideas en obras concretas a través de un riguroso dominio técnico, estético y funcional.</p>
       <div class="hero-actions">
-        <a href="#projectsGrid" class="btn-primary" onclick="document.getElementById('navProjects').click()">Ver Proyectos &rarr;</a>
+        <a href="#projectsGrid" class="btn-primary" onclick="document.getElementById('navProjects').click()">Ver Trabajos &rarr;</a>
         <a href="https://wa.me/5491164675558?text=Hola!%20Quiero%20coordinar%20una%20consulta." target="_blank" class="btn-secondary">Iniciar Consulta</a>
       </div>
     </div>
@@ -751,10 +751,10 @@
     <!-- Vista Proyectos, Anteproyectos y Reformas -->
     <section id="sectionProjects" class="section-view active">
       <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">Todos los trabajos</button>
-        <button class="filter-btn" data-filter="proyecto">Proyectos & Obra</button>
+        <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="anteproyecto">Anteproyectos</button>
-        <button class="filter-btn" data-filter="reforma">Reformas & Ampliaciones</button>
+        <button class="filter-btn" data-filter="proyecto">Proyectos</button>
+        <button class="filter-btn" data-filter="reforma">Reformas</button>
       </div>
 
       <div class="grid" id="projectsGrid">
@@ -766,7 +766,7 @@
           <div class="project-info">
             <div>
               <h3>CS 85</h3>
-              <p>Proyecto y Dirección · Vivienda unifamiliar</p>
+              <p>Proyecto y Dirección</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -780,7 +780,7 @@
           <div class="project-info">
             <div>
               <h3>Chacras de la Reserva 156</h3>
-              <p>Proyecto residencial en lote suburbano</p>
+              <p>Proyecto residencial</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -794,7 +794,7 @@
           <div class="project-info">
             <div>
               <h3>Bali Ecoislandia</h3>
-              <p>Anteproyecto sustentable</p>
+              <p>Anteproyecto</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -808,7 +808,7 @@
           <div class="project-info">
             <div>
               <h3>Lujan L4</h3>
-              <p>Anteproyecto y diseño conceptual</p>
+              <p>Anteproyecto</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -822,7 +822,7 @@
           <div class="project-info">
             <div>
               <h3>Barrio Alameda Lote 244</h3>
-              <p>Reforma de fachadas e interiorismo</p>
+              <p>Reforma</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -830,13 +830,13 @@
 
         <article class="project" data-id="project6" data-category="proyecto">
           <div class="project-img-container">
-            <span class="project-tag">Buenos Aires</span>
-            <img src="images/cazal-235/01.jpg" alt="Barrio Cazal - Diseño Residencial" loading="lazy">
+            <span class="project-tag">Buenos Aires - Escobar</span>
+            <img src="images/cazal-235/01.jpg" alt="Barrio Cazal - Escobar" loading="lazy">
           </div>
           <div class="project-info">
             <div>
               <h3>Barrio Cazal</h3>
-              <p>Proyecto y visualización 3D</p>
+              <p>Proyecto</p>
             </div>
             <div class="project-arrow">&rarr;</div>
           </div>
@@ -844,7 +844,7 @@
       </div>
     </section>
 
-    <!-- Vista "El Estudio" Profesional con Enfoque en Servicios y Redes -->
+    <!-- Vista "El Estudio" -->
     <section id="sectionAbout" class="section-view">
       <div class="about-wrapper">
         <div class="about-hero-grid">
@@ -861,15 +861,15 @@
         <div class="services-grid">
           <div class="service-card">
             <h3>01. Anteproyectos</h3>
-            <p>Estudio de cabida, volumetría inicial, plantas funcionales y alternativas conceptuales adaptadas a las normativas de cada zona o barrio cerrado.</p>
+            <p>Estudio de cabida, volumetría inicial, plantas funcionales y alternativas conceptuales adaptadas a las normativas vigentes.</p>
           </div>
           <div class="service-card">
-            <h3>02. Proyectos & Dirección</h3>
-            <p>Legajo técnico completo, cómputo y presupuesto, pliegos ejecutivos y supervisión rigurosa en obra para garantizar la fidelidad del diseño.</p>
+            <h3>02. Proyectos</h3>
+            <p>Legajo técnico completo, cómputo y presupuesto, pliegos ejecutivos y supervisión rigurosa en obra.</p>
           </div>
           <div class="service-card">
-            <h3>03. Reformas & Ampliaciones</h3>
-            <p>Reestructuración espacial, demoliciones calculadas, ampliaciones de superficies y actualización integral de viviendas existentes.</p>
+            <h3>03. Reformas</h3>
+            <p>Reestructuración espacial, demoliciones calculadas, ampliaciones de superficies y actualización integral de viviendas.</p>
           </div>
         </div>
       </div>
@@ -894,7 +894,7 @@
           <h4>Ficha Técnica</h4>
           <div class="spec-row">
             <span>Servicio</span>
-            <span id="specService">Proyecto y Obra</span>
+            <span id="specService">Proyecto</span>
           </div>
           <div class="spec-row">
             <span>Programa</span>
@@ -912,7 +912,7 @@
       </div>
 
       <div class="modal-footer">
-        <p style="font-size: 0.95rem; color: var(--text-muted);">¿Te interesa una propuesta similar para tu terreno o reforma?</p>
+        <p style="font-size: 0.95rem; color: var(--text-muted);">¿Te interesa una propuesta similar?</p>
         <a href="#" class="modal-cta" id="modalCta" target="_blank">Consultar por WhatsApp &rarr;</a>
       </div>
     </div>
@@ -921,7 +921,7 @@
   <footer>
     <div>
       <p>© 2026 Estudio HZ. Todos los derechos reservados.</p>
-      <p style="font-size: 0.85rem; margin-top: 0.25rem;">Arquitectura, Anteproyectos y Reformas</p>
+      <p style="font-size: 0.85rem; margin-top: 0.25rem;">Anteproyectos, Proyectos y Reformas</p>
     </div>
     <div class="footer-links">
       <a href="https://www.instagram.com/" target="_blank">Instagram</a>
@@ -934,44 +934,44 @@
     const projectData = {
       project1: {
         title: "CS 85",
-        meta: "Buenos Aires · Proyecto y Dirección",
-        service: "Proyecto y Obra",
-        desc: "Desarrollo volumétrico enfocado en la pureza de líneas y la optimización de la luz natural. El proyecto resuelve la planta en torno a patios internos que conectan visualmente las áreas sociales con el exterior sin resignar privacidad.",
+        meta: "Buenos Aires · Proyecto",
+        service: "Proyecto",
+        desc: "Desarrollo volumétrico enfocado en la pureza de líneas y la optimización de la luz natural. El proyecto resuelve la planta en torno a patios internos que conectan visualmente las áreas sociales con el exterior.",
         images: ["images/proyecto1.jpg"]
       },
       project2: {
         title: "Chacras de la Reserva 156",
-        meta: "Buenos Aires · Vivienda unifamiliar",
-        service: "Proyecto Residencial",
-        desc: "Propuesta arquitectónica resuelta en una sola planta dentro de un entorno suburbano abierto. Se priorizaron galerías expansivas, techos de gran porte y una fuerte conexión directa con el paisaje verde circundante.",
+        meta: "Buenos Aires · Proyecto",
+        service: "Proyecto",
+        desc: "Propuesta arquitectónica resuelta en una sola planta dentro de un entorno suburbano abierto. Se priorizaron galerías expansivas y una fuerte conexión directa con el paisaje verde circundante.",
         images: ["images/proyecto2.jpg"]
       },
       project3: {
         title: "Bali Ecoislandia",
-        meta: "Escobar · Anteproyecto Sustentable",
+        meta: "Escobar · Anteproyecto",
         service: "Anteproyecto",
-        desc: "Anteproyecto residencial con criterios bioclimáticos e integración paisajística. Uso de envolventes eficientes, ventilaciones cruzadas controladas y materiales nobles de bajo mantenimiento.",
+        desc: "Anteproyecto residencial con criterios bioclimáticos e integración paisajística. Uso de envolventes eficientes y ventilaciones cruzadas controladas.",
         images: ["images/proyecto3.jpg"]
       },
       project4: {
         title: "Lujan L4",
-        meta: "Luján · Anteproyecto Conceptual",
+        meta: "Luján · Anteproyecto",
         service: "Anteproyecto",
-        desc: "Diseño conceptual y legajo preliminar para vivienda moderna. Estructura sintética, volúmenes puros en hormigón visto y carpinterías de piso a techo para diluir el límite interior-exterior.",
+        desc: "Diseño conceptual y legajo preliminar para vivienda moderna. Estructura sintética y volúmenes puros en relación directa con el entorno.",
         images: ["images/proyecto4.jpg"]
       },
       project5: {
         title: "Barrio Alameda Lote 244",
-        meta: "Buenos Aires · Reforma y Fachadas",
-        service: "Reformas & Ampliaciones",
-        desc: "Estudio integral de fachadas, reestructuración espacial y diseño interior para lote en barrio cerrado. Paleta neutra de materiales con acentos en madera natural y piedra.",
+        meta: "Buenos Aires · Reforma",
+        service: "Reforma",
+        desc: "Estudio integral de fachadas, reestructuración espacial y diseño interior para lote en barrio cerrado.",
         images: ["images/proyecto5.jpg"]
       },
       project6: {
         title: "Barrio Cazal",
-        meta: "Buenos Aires · Proyecto y Visualización",
-        service: "Proyecto y Obra",
-        desc: "Visualización 3D avanzada y resolución espacial de vivienda contemporánea en entorno natural. Énfasis en la espacialidad de doble altura y la escala humana de los espacios íntimos.",
+        meta: "Buenos Aires - Escobar · Proyecto",
+        service: "Proyecto",
+        desc: "Desarrollo y visualización espacial de vivienda contemporánea en entorno natural de Escobar. Énfasis en la espacialidad y materialidad.",
         images: [
           "images/cazal-235/01.jpg",
           "images/cazal-235/02.jpg",
@@ -985,7 +985,6 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Navegación entre vistas
       const navProjects = document.getElementById('navProjects');
       const navAbout = document.getElementById('navAbout');
       const sectionProjects = document.getElementById('sectionProjects');
@@ -1007,7 +1006,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // 2. Filtros de categoría de proyectos
       const filterBtns = document.querySelectorAll('.filter-btn');
       const projectCards = document.querySelectorAll('.project');
 
@@ -1027,7 +1025,6 @@
         });
       });
 
-      // 3. Modal Profesional
       const modal = document.getElementById('projectModal');
       const closeBtn = document.getElementById('modalCloseBtn');
       const projectsGrid = document.getElementById('projectsGrid');
@@ -1056,7 +1053,7 @@
         });
 
         const cta = document.getElementById('modalCta');
-        const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en la web de Estudio HZ y quiero consultar por algo similar.`);
+        const encodedText = encodeURIComponent(`Hola! Vi el proyecto ${data.title} en la web de Estudio HZ y quiero consultar.`);
         cta.href = `https://wa.me/5491164675558?text=${encodedText}`;
 
         modal.classList.add('active');
